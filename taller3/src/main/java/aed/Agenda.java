@@ -1,29 +1,40 @@
 package aed;
 
 public class Agenda {
+    private Fecha fechaActual;
+    private ArregloRedimensionableDeRecordatorios listaDeRecordatorios;
 
     public Agenda(Fecha fechaActual) {
-        throw new UnsupportedOperationException("No implementada aun");
+        this.fechaActual = new Fecha(fechaActual);
+        this.listaDeRecordatorios = new ArregloRedimensionableDeRecordatorios();
     }
 
     public void agregarRecordatorio(Recordatorio recordatorio) {
-        throw new UnsupportedOperationException("No implementada aun");
-
+        listaDeRecordatorios.agregarAtras(recordatorio);
     }
+    
 
     @Override
+   
     public String toString() {
-        throw new UnsupportedOperationException("No implementada aun");
-
+        String res = fechaActual() + "\n"
+                     + "=====\n";
+            for (int i = 0; i < listaDeRecordatorios.longitud(); i++) {
+                Recordatorio recordatorio = listaDeRecordatorios.obtener(i);
+                if(fechaActual.equals(recordatorio.fecha())){
+                res += recordatorio.toString() + "\n";
+                }
+            }
+    
+        return res;
     }
-
+    
+    
     public void incrementarDia() {
-        throw new UnsupportedOperationException("No implementada aun");
-
+        fechaActual.incrementarDia();
     }
 
     public Fecha fechaActual() {
-        throw new UnsupportedOperationException("No implementada aun");
+        return new Fecha(fechaActual);
     }
-
 }
