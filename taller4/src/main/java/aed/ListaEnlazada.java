@@ -1,5 +1,7 @@
 package aed;
 
+import java.util.List;
+
 public class ListaEnlazada<T> implements Secuencia<T> {
     private Nodo primero;
     private Nodo ultimo;
@@ -119,37 +121,28 @@ public class ListaEnlazada<T> implements Secuencia<T> {
     }
 
     private class ListaIterador implements Iterador<T> {
-        private Nodo actual;
-        private Nodo previo;
+        private int puntero;
+
+        ListaIterador(){
+            puntero = 0;
+        }
 
         public boolean haySiguiente() {
-            if (actual.Siguiente == null){
-                return false;
-            }else{
-                return true;
-            }
+            return puntero != longitud;
         }
 
         public boolean hayAnterior() {
-            return previo != null;
+            return puntero != 0;
         }
 
         public T siguiente() {
-            T dato = actual.valor;
-            actual = actual.Siguiente;
-            return dato;
+            puntero ++;
+            return obtener(puntero - 1);
         }
 
         public T anterior() {
-            T dato = previo.valor;
-            Nodo temp = primero;
-            previo = null;
-            while (temp != null && temp.Siguiente != actual) {
-                previo = temp;
-                temp = temp.Siguiente;
-            }
-            actual = previo;
-            return dato;
+            puntero --;
+            return obtener(puntero);
         }
     }
 
